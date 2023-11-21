@@ -1,3 +1,9 @@
 <resources>
     <string name="app_name">Westeros</string>
+    <string name="email_label">Email</string>
+    <string name="password_label">Password</string>
+    <string name="login_btn">Login</string>
+    <string name="continue_google">Continue with Google</string>
+    <string name="not_account">Don\'t have an account?</string>
+    <string name="register_btn">Register</string>
 </resources>

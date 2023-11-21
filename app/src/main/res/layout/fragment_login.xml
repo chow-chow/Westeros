@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:gravity="center"
+    tools:context=".ui.auth.LoginFragment"
+    android:background="@color/pastel_blue">
+
+    <FrameLayout
+        android:layout_width="211dp"
+        android:layout_height="211dp"
+        android:background="@drawable/logo_bg"
+        android:layout_marginBottom="@dimen/margin_bottom">
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/westeros_logo"
+            android:layout_gravity="center"
+            android:importantForAccessibility="no"/>
+    </FrameLayout>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/cinzel"
+        android:textSize="45sp"
+        android:text="@string/app_name"
+        android:layout_marginBottom="@dimen/margin_bottom"/>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/tf_email"
+        android:layout_width="320dp"
+        android:layout_height="wrap_content"
+        android:hint="@string/email_label"
+        android:textColorHint="@color/light_steel_blue"
+        app:hintTextColor="@color/midnight_blue"
+        app:hintTextAppearance="?attr/textAppearanceBody1"
+        app:boxStrokeColor="@color/midnight_blue"
+        app:startIconDrawable="@drawable/alternate_email_24"
+        app:startIconTint="@color/light_steel_blue"
+        app:endIconMode="clear_text"
+        app:endIconTint="@color/light_steel_blue"
+        android:textColor="@color/midnight_blue"
+        android:layout_marginBottom="@dimen/margin_bottom"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense">
+        <com.google.android.material.textfield.TextInputEditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/tf_password"
+        android:layout_width="320dp"
+        android:layout_height="wrap_content"
+        android:hint="@string/password_label"
+        android:textColorHint="@color/light_steel_blue"
+        app:hintTextColor="@color/midnight_blue"
+        app:hintTextAppearance="?attr/textAppearanceBody1"
+        app:boxStrokeColor="@color/midnight_blue"
+        app:startIconDrawable="@drawable/password_24"
+        app:startIconTint="@color/light_steel_blue"
+        app:endIconMode="password_toggle"
+        app:endIconTint="@color/light_steel_blue"
+        app:endIconDrawable="@drawable/custom_password_toggle"
+        android:textColor="@color/midnight_blue"
+        android:layout_marginBottom="@dimen/margin_bottom"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense">
+        <com.google.android.material.textfield.TextInputEditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="textPassword"/>
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <Button
+        android:id="@+id/btn_login"
+        android:layout_width="320dp"
+        android:layout_height="wrap_content"
+        android:paddingVertical="12dp"
+        app:icon="@drawable/baseline_arrow_forward_24"
+        app:iconGravity="textEnd"
+        style="@style/Widget.MaterialComponents.Button.Icon"
+        android:text="@string/login_btn"
+        android:layout_marginBottom="@dimen/margin_bottom"
+        android:backgroundTint="@color/midnight_blue"/>
+
+    <com.google.android.material.divider.MaterialDivider
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:dividerInsetStart="46dp"
+        app:dividerInsetEnd="46dp"
+        android:layout_marginBottom="@dimen/margin_bottom"/>
+
+    <Button
+        android:id="@+id/btn_google_login"
+        android:layout_width="320dp"
+        android:layout_height="wrap_content"
+        android:paddingVertical="12dp"
+        app:icon="@drawable/ic_google_24"
+        app:iconTint="@null"
+        app:iconGravity="textStart"
+        style="@style/Widget.MaterialComponents.Button.Icon"
+        android:text="@string/continue_google"
+        android:textColor="@color/black"
+        android:backgroundTint="@color/white"
+        android:layout_marginBottom="@dimen/margin_bottom"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/not_account"/>
+
+    <Button
+        android:id="@+id/btn_register"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:icon="@drawable/arrow_forward_ios_24"
+        app:iconTint="@color/midnight_blue"
+        app:iconGravity="textEnd"
+        app:rippleColor="@color/steel_blue"
+        style="@style/Widget.MaterialComponents.Button.TextButton.Icon"
+        android:text="@string/register_btn"
+        android:textColor="@color/midnight_blue" />
+
+
+
+</LinearLayout>
