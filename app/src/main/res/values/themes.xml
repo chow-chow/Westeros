@@ -3,7 +3,22 @@
     <style name="Base.Theme.Westeros" parent="Theme.MaterialComponents.DayNight.NoActionBar">
         <!-- Customize your light theme here. -->
         <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
+        <item name="android:statusBarColor">@color/pastel_blue</item>
+        <item name="android:windowLightStatusBar">true</item>
+<!--        <item name="materialAlertDialogTheme">@style/ThemeOverlay.App.MaterialAlertDialog</item>-->
     </style>
 
     <style name="Theme.Westeros" parent="Base.Theme.Westeros" />
+        
+    <style name="Theme.App.Starting" parent="Theme.SplashScreen">
+        <item name="windowSplashScreenBackground">@color/midnight_blue</item>
+        <item name="windowSplashScreenAnimatedIcon">@drawable/splashscreen_westeros_dark</item>
+        <item name="postSplashScreenTheme">@style/Theme.Westeros</item>
+    </style>
+
+<!--    <style name="ThemeOverlay.App.MaterialAlertDialog" parent="ThemeOverlay.MaterialComponents.MaterialAlertDialog">-->
+<!--        <color name="colorPrimary">@color/midnight_blue</color>-->
+<!--        <item name="colorSurface">@color/pastel_green</item>-->
+<!--        <item name="colorOnSurface">@color/black</item>-->
+<!--    </style>-->
 </resources>

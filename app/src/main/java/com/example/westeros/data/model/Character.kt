@@ -1,4 +1,4 @@
-package com.example.westeros.model
+package com.example.westeros.data.model
 
 
 import com.squareup.moshi.Json

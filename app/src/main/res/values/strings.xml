@@ -6,4 +6,27 @@
     <string name="continue_google">Continue with Google</string>
     <string name="not_account">Don\'t have an account?</string>
     <string name="register_btn">Register</string>
+    <string name="forgot_password">Forgot your Password?</string>
+
+    <!-- Login Errors -->
+    <string name="error_email_required">Email cannot be empty</string>
+    <string name="error_email_invalid">Invalid Email</string>
+    <string name="error_email_too_short">Email is too short</string>
+    <string name="error_email_too_long">Email is too long</string>
+    <string name="error_password_required">Password cannot be empty</string>
+    <string name="error_password_too_short">Password must be at least 8 characters</string>
+    <string name="error_password_too_long">Password cannot be longer than 20 characters</string>
+    <string name="error_password_no_digit">Password must contain at least one digit</string>
+    <string name="error_password_no_uppercase">Password must contain at least one uppercase letter</string>
+    <string name="error_password_no_lowercase">Password must contain at least one lowercase letter</string>
+    <string name="error_password_no_special">Password must contain at least one special character</string>
+
+    <!-- Dialogs -->
+    <string name="incorrect_data">Incorrect data</string>
+    <string name="incorrect_data_message">The email or password is incorrect</string>
+    <string name="title_activity_app">AppActivity</string>
+    <string name="title_home">Home</string>
+
+    <!-- Toast -->
+    <string name="sign_in_success">Signed in as %s</string>
 </resources>

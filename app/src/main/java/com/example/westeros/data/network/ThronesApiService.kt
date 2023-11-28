@@ -1,17 +1,13 @@
-package com.example.westeros.network
+package com.example.westeros.data.network
 
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
 import retrofit2.http.GET
-import com.example.westeros.model.Character
+import com.example.westeros.data.model.Character
+import com.example.westeros.util.Constants
 import retrofit2.http.Path
-
-/*
- * BASE_URL is the URL of the API we are asking for resources
- */
-private const val BASE_URL = "https://thronesapi.com"
 
 /*
  * Moshi object to parse JSON into kotlin objects
@@ -25,7 +21,7 @@ private val moshi = Moshi.Builder()
  */
 private val retrofit = Retrofit.Builder()
     .addConverterFactory(MoshiConverterFactory.create(moshi))
-    .baseUrl(BASE_URL)
+    .baseUrl(Constants.BASE_URL)
     .build()
 
 /*
