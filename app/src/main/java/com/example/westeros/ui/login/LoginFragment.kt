@@ -1,5 +1,7 @@
 package com.example.westeros.ui.login
 
+import android.app.Activity
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.text.Editable
@@ -8,21 +10,28 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.activity.result.ActivityResultLauncher
+import androidx.activity.result.IntentSenderRequest
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.widget.doOnTextChanged
 import androidx.databinding.adapters.TextViewBindingAdapter.AfterTextChanged
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.example.westeros.R
 import com.example.westeros.databinding.FragmentLoginBinding
 import com.example.westeros.ui.app.AppActivity
 import com.example.westeros.util.DialogUtils.showErrorDialog
 import com.example.westeros.util.ToastUtils.showToastLong
+import com.google.firebase.auth.FirebaseUser
 import dagger.hilt.android.AndroidEntryPoint
 import dagger.hilt.android.scopes.ActivityScoped
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
+private const val TAG = "LoginFragment"
 @AndroidEntryPoint
 class LoginFragment : Fragment() {
 
@@ -30,6 +39,13 @@ class LoginFragment : Fragment() {
     private val binding get() = _binding!!
 
     private val loginViewModel: LoginViewModel by viewModels()
+
+    private lateinit var launcher : ActivityResultLauncher<IntentSenderRequest>
+
+    private var user: FirebaseUser? = null
+
+    private lateinit var signedInMethod: String
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -45,8 +61,22 @@ class LoginFragment : Fragment() {
             viewModel = loginViewModel
             loginFragment = this@LoginFragment
         }
+
+        user = loginViewModel.getCurrentUser()
+        signedInMethod = loginViewModel.getSignInMethod()
+
+        checkCurrentUser()
         initListeners()
         observeLoginStatus()
+        startIntentSender()
+        observeIntentSender()
+    }
+
+    private fun checkCurrentUser() {
+        if (user != null) {
+            goToApplication()
+            showLoginToast(context)
+        }
     }
 
     private fun initListeners() {
@@ -75,6 +105,10 @@ class LoginFragment : Fragment() {
                     tfPassword.text.toString()
                 )
             }
+
+            btnGoogleLogin.setOnClickListener {
+                loginViewModel.onLoginWithGoogleSelected()
+            }
         }
     }
 
@@ -96,13 +130,7 @@ class LoginFragment : Fragment() {
             when (status) {
                 LoginStatus.DONE -> {
                     context?.let {
-                        showToastLong(
-                            it,
-                            it.getString(
-                                R.string.sign_in_success,
-                                loginViewModel.getCurrentUser()?.email.toString()
-                            )
-                        )
+                        showLoginToast(it)
                     }
                     goToApplication()
                 }
@@ -118,19 +146,56 @@ class LoginFragment : Fragment() {
         }
     }
 
-    override fun onResume() {
-        super.onResume()
-        (activity as AppCompatActivity).supportActionBar?.hide()
+    private fun showLoginToast(context: Context?) {
+        // Actualizamos el usuario y el método de inicio de sesión
+        user = loginViewModel.getCurrentUser()
+        signedInMethod = loginViewModel.getSignInMethod()
+        context?.let {
+            val username = if (signedInMethod == "google.com") {
+                user?.displayName.toString()
+            } else {
+                user?.email.toString()
+            }
+            showToastLong(
+                it,
+                it.getString(
+                    R.string.sign_in_success,
+                    username
+                )
+            )
+        }
+    }
+    private fun startIntentSender() {
+        launcher = registerForActivityResult(ActivityResultContracts.StartIntentSenderForResult()) {result ->
+            if (result.resultCode == Activity.RESULT_OK) {
+                lifecycleScope.launch {
+                    val intent = result.data ?: return@launch
+                    loginViewModel.loginFromGoogleIntent(intent)
+                }
+            }
+        }
     }
 
-    override fun onPause() {
-        super.onPause()
-        (activity as AppCompatActivity).supportActionBar?.show()
+    private fun observeIntentSender() {
+        loginViewModel.googleLoginIntentSender.observe(viewLifecycleOwner) { intentSender ->
+            intentSender?.let {
+                launcher.launch(
+                    IntentSenderRequest.Builder(it).build()
+                )
+            }
+        }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        Log.d(TAG, "onResume: Action bar hidden")
+        (activity as AppCompatActivity).supportActionBar?.hide()
     }
 
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+        (activity as AppCompatActivity).supportActionBar?.show()
     }
 
     /*
@@ -146,5 +211,6 @@ class LoginFragment : Fragment() {
     private fun goToApplication() {
         val intent = Intent(context, AppActivity::class.java)
         context?.startActivity(intent)
+        activity?.finish()
     }
 }

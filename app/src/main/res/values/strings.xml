@@ -29,4 +29,7 @@
 
     <!-- Toast -->
     <string name="sign_in_success">Signed in as %s</string>
+
+    <!-- Google auth -->
+    <string name="default_web_client_id">794757889511-c969odjsrn0nlnpsfnsi2u93uvpk104t.apps.googleusercontent.com</string>
 </resources>

@@ -1,22 +1,27 @@
 package com.example.westeros.ui.login
 
-import android.content.Context
+import android.app.Activity
+import android.content.Intent
+import android.content.IntentSender
 import android.util.Log
 import android.util.Patterns
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.westeros.data.network.auth.LoginResult
 import com.example.westeros.domain.GetCurrentUserUseCase
+import com.example.westeros.domain.LoginFromGoogleIntentUseCase
 import com.example.westeros.domain.LoginUseCase
+import com.example.westeros.domain.LoginWithGoogleUseCase
 import com.example.westeros.util.Constants.MAX_PASSWORD_LENGTH
 import com.example.westeros.util.Constants.MIN_PASSWORD_LENGTH
 import com.example.westeros.util.errors.EmailValidationError
 import com.example.westeros.util.errors.PasswordValidationError
-import com.google.firebase.auth.FirebaseUser
+import com.google.android.gms.auth.api.identity.Identity
 import dagger.hilt.android.lifecycle.HiltViewModel
-import dagger.hilt.android.qualifiers.ApplicationContext
+import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -26,9 +31,14 @@ enum class LoginStatus { LOADING, ERROR, DONE }
 class LoginViewModel @Inject constructor(
     val loginUseCase: LoginUseCase,
     val getCurrentUserUseCase: GetCurrentUserUseCase,
+    val loginWithGoogleUseCase: LoginWithGoogleUseCase,
+    val loginFromGoogleIntentUseCase: LoginFromGoogleIntentUseCase
 ): ViewModel() {
     private val _loginStatus = MutableLiveData<LoginStatus>()
     val loginStatus: LiveData<LoginStatus> = _loginStatus
+
+    private val _googleLoginIntentSender = MutableLiveData<IntentSender?>()
+    val googleLoginIntentSender: LiveData<IntentSender?> = _googleLoginIntentSender
 
     private val _emailError = MutableLiveData<EmailValidationError?>()
     val emailError: LiveData<EmailValidationError?> = _emailError
@@ -47,10 +57,32 @@ class LoginViewModel @Inject constructor(
         }
     }
 
+    fun onLoginWithGoogleSelected() {
+        viewModelScope.launch {
+            _googleLoginIntentSender.value = loginWithGoogleUseCase()
+        }
+    }
+
+    fun loginFromGoogleIntent(intent: Intent) {
+        viewModelScope.launch {
+            _loginStatus.value = LoginStatus.LOADING
+            when (loginFromGoogleIntentUseCase(intent)) {
+                is LoginResult.Error -> {
+                    _loginStatus.value = LoginStatus.ERROR
+                    // show error dialog
+                }
+                is LoginResult.Success -> {
+                    _loginStatus.value = LoginStatus.DONE
+                    // navigate to AppActivity
+                }
+            }
+        }
+    }
+
     private fun loginUser(email: String, password: String) {
         viewModelScope.launch {
             _loginStatus.value = LoginStatus.LOADING
-            when (val result = loginUseCase(email, password)) {
+            when (loginUseCase(email, password)) {
                 is LoginResult.Error -> {
                     _loginStatus.value = LoginStatus.ERROR
                     // show invalid email or password dialog
@@ -122,4 +154,8 @@ class LoginViewModel @Inject constructor(
     }
 
     fun getCurrentUser() = getCurrentUserUseCase()
+
+    fun getSignInMethod(): String {
+        return getCurrentUser()?.providerData?.get(1)?.providerId ?: ""
+    }
 }

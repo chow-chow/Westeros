@@ -1,6 +1,16 @@
 package com.example.westeros.data.network.auth
 
+import android.content.Context
+import android.content.Intent
+import android.content.IntentSender
+import com.example.westeros.R
+import com.google.android.gms.auth.api.identity.BeginSignInRequest
+import com.google.android.gms.auth.api.identity.BeginSignInRequest.GoogleIdTokenRequestOptions
+import com.google.android.gms.auth.api.identity.Identity
 import com.google.firebase.auth.AuthResult
+import com.google.firebase.auth.GoogleAuthProvider
+import dagger.hilt.android.qualifiers.ApplicationContext
+import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.Flow
@@ -15,7 +25,10 @@ import javax.inject.Singleton
  * la conexión con Firebase.
  */
 @Singleton
-class AuthService @Inject constructor(private val firebase: FirebaseClient){
+class AuthService @Inject constructor(
+    @ApplicationContext private val context: Context,
+    private val firebase: FirebaseClient
+){
 
     /*
      * Para verificar si el usuario está autenticado usamos un Flow<Boolean> que se encarga de emitir un booleano
@@ -67,6 +80,37 @@ class AuthService @Inject constructor(private val firebase: FirebaseClient){
             firebase.auth.currentUser?.sendEmailVerification()?.await()
             true
         }.getOrElse { false }
+    }
+
+    suspend fun loginWithGoogle(): IntentSender? {
+        val result = try {
+            Identity.getSignInClient(context).beginSignIn(beginSignInRequest()).await()
+        } catch (e: Exception) {
+            e.printStackTrace()
+            if (e is CancellationException) throw e
+            null
+        }
+        return result?.pendingIntent?.intentSender
+    }
+
+    suspend fun loginFromGoogleIntent(intent: Intent?): LoginResult = runCatching {
+        val credential = Identity.getSignInClient(context).getSignInCredentialFromIntent(intent)
+        val googleIdToken = credential.googleIdToken
+        val googleCredentials = GoogleAuthProvider.getCredential(googleIdToken, null)
+        firebase.auth.signInWithCredential(googleCredentials).await()
+     }.toLoginResult()
+
+    private fun beginSignInRequest(): BeginSignInRequest {
+        return BeginSignInRequest.builder()
+            .setGoogleIdTokenRequestOptions(
+                GoogleIdTokenRequestOptions.builder()
+                    .setSupported(true)
+                    .setServerClientId(context.getString(R.string.default_web_client_id))
+                    .setFilterByAuthorizedAccounts(false)
+                    .build()
+            )
+            .setAutoSelectEnabled(true)
+            .build()
     }
 
     /*
