@@ -7,6 +7,9 @@
     <string name="not_account">Don\'t have an account?</string>
     <string name="register_btn">Register</string>
     <string name="forgot_password">Forgot your Password?</string>
+    <string name="next">Next</string>
+    <string name="register_email">What\'s your email?</string>
+    <string name="register_password">Create a password</string>
 
     <!-- Login Errors -->
     <string name="error_email_required">Email cannot be empty</string>
@@ -26,9 +29,12 @@
     <string name="incorrect_data_message">The email or password is incorrect</string>
     <string name="title_activity_app">AppActivity</string>
     <string name="title_home">Home</string>
+    <string name="register_error_title">Registration error</string>
+    <string name="register_error_message">An error occurred while registering</string>
 
     <!-- Toast -->
     <string name="sign_in_success">Signed in as %s</string>
+    <string name="register_success">Registered as %s</string>
 
     <!-- Google auth -->
     <string name="default_web_client_id">794757889511-c969odjsrn0nlnpsfnsi2u93uvpk104t.apps.googleusercontent.com</string>
