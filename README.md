@@ -8,6 +8,8 @@ Game of Thrones Character wiki that utilizes data from [thronesapi.com](https://
 
 ![google_screens](./screenshots/screens_google.png)
 
+![register_screens](./screenshots/screens_register.png)
+
 ## Features
 
 This app was built with modern Android development practices and tools. It showcases the following concepts:
