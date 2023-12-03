@@ -14,22 +14,18 @@ import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.IntentSenderRequest
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.widget.doOnTextChanged
-import androidx.databinding.adapters.TextViewBindingAdapter.AfterTextChanged
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.example.westeros.R
 import com.example.westeros.databinding.FragmentLoginBinding
-import com.example.westeros.ui.app.AppActivity
+import com.example.westeros.ui.AppActivity
 import com.example.westeros.util.DialogUtils.showErrorDialog
 import com.example.westeros.util.ToastUtils.showToastLong
 import com.google.firebase.auth.FirebaseUser
 import dagger.hilt.android.AndroidEntryPoint
-import dagger.hilt.android.scopes.ActivityScoped
 import kotlinx.coroutines.launch
-import javax.inject.Inject
 
 private const val TAG = "LoginFragment"
 @AndroidEntryPoint

@@ -55,7 +55,8 @@ class AuthService @Inject constructor(
     /*
      * Así mismo creamos una función suspend para cerrar la sesión de un usuario.
      */
-    suspend fun logout() {
+    fun logout() {
+        Identity.getSignInClient(context).signOut()
         firebase.auth.signOut()
     }
 

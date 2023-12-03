@@ -1,4 +1,4 @@
-package com.example.westeros.data.network
+package com.example.westeros.data.network.api
 
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory

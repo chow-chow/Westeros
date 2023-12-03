@@ -54,11 +54,17 @@ dependencies {
     implementation("androidx.navigation:navigation-fragment-ktx:2.7.5")
     implementation("androidx.navigation:navigation-ui-ktx:2.7.5")
 
+    // retrofit
+    implementation("com.squareup.retrofit2:retrofit:2.9.0")
+
     // moshi
     implementation("com.squareup.moshi:moshi-kotlin:1.14.0")
 
     // retrofit with moshi converter
     implementation("com.squareup.retrofit2:converter-moshi:2.9.0")
+
+    // coil
+    implementation("io.coil-kt:coil:2.2.2")
 
     // splashscreen
     implementation("androidx.core:core-splashscreen:1.0.1")

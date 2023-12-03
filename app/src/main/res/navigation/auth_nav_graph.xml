@@ -15,6 +15,6 @@
     </fragment>
     <fragment
         android:id="@+id/registerFragment"
-        android:name="com.example.westeros.ui.login.RegisterFragment"
+        android:name="com.example.westeros.ui.register.RegisterFragment"
         tools:layout="@layout/fragment_register" />
 </navigation>

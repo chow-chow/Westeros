@@ -1,4 +1,4 @@
-package com.example.westeros.ui.login
+package com.example.westeros.ui.register
 
 import android.util.Log
 import android.util.Patterns

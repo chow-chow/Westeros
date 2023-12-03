@@ -3,6 +3,7 @@
     <string name="email_label">Email</string>
     <string name="password_label">Password</string>
     <string name="login_btn">Login</string>
+    <string name="logout_btn">Logout</string>
     <string name="continue_google">Continue with Google</string>
     <string name="not_account">Don\'t have an account?</string>
     <string name="register_btn">Register</string>
@@ -27,8 +28,6 @@
     <!-- Dialogs -->
     <string name="incorrect_data">Incorrect data</string>
     <string name="incorrect_data_message">The email or password is incorrect</string>
-    <string name="title_activity_app">AppActivity</string>
-    <string name="title_home">Home</string>
     <string name="register_error_title">Registration error</string>
     <string name="register_error_message">An error occurred while registering</string>
 
@@ -38,4 +37,11 @@
 
     <!-- Google auth -->
     <string name="default_web_client_id">794757889511-c969odjsrn0nlnpsfnsi2u93uvpk104t.apps.googleusercontent.com</string>
+
+    <!-- Bottom Navigation -->
+    <string name="title_activity_app">AppActivity</string>
+    <string name="title_characters">Characters</string>
+    <string name="title_profile">Profile</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

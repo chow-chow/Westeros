@@ -1,4 +1,4 @@
-package com.example.westeros.ui.login
+package com.example.westeros.ui.register
 
 import android.content.Context
 import android.content.Intent
@@ -12,7 +12,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import com.example.westeros.R
 import com.example.westeros.databinding.FragmentRegisterBinding
-import com.example.westeros.ui.app.AppActivity
+import com.example.westeros.ui.AppActivity
 import com.example.westeros.util.DialogUtils.showErrorDialog
 import com.example.westeros.util.ToastUtils.showToastLong
 import dagger.hilt.android.AndroidEntryPoint
@@ -123,5 +123,10 @@ class RegisterFragment : Fragment() {
         val intent = Intent(context, AppActivity::class.java)
         context?.startActivity(intent)
         activity?.finish()
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 }

@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <import type="android.view.View"/>
+        <import type="com.example.westeros.ui.characters.CharacterDetailsStatus"/>
+        <variable
+            name="character"
+            type="com.example.westeros.data.model.Character" />
+        <variable
+            name="viewModel"
+            type="com.example.westeros.ui.characters.CharacterDetailsViewModel" />
+    </data>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".ui.characters.CharacterDetailsFragment">
+
+        <com.google.android.material.card.MaterialCardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_margin="16dp"
+            app:cardBackgroundColor="@color/light_steel_blue"
+            app:cardCornerRadius="@dimen/card_radius"
+            app:cardElevation="@dimen/card_elevation">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:padding="16dp">
+
+                <ImageView
+                    android:layout_width="155dp"
+                    android:layout_height="271dp"
+                    android:importantForAccessibility="no"
+                    android:scaleType="centerCrop"
+                    app:setHouseImg="@{character.family}"
+                    tools:srcCompat="@tools:sample/backgrounds/scenic" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:orientation="vertical"
+                    android:padding="16dp">
+
+                    <ImageView
+                        android:layout_width="120dp"
+                        android:layout_height="120dp"
+                        android:layout_marginBottom="@dimen/margin_bottom"
+                        android:importantForAccessibility="no"
+                        android:scaleType="centerCrop"
+                        app:imageUrl="@{character.imageUrl}"
+                        tools:srcCompat="@tools:sample/avatars" />
+
+                    <TextView
+                        android:id="@+id/character_name"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/title_bg"
+                        android:paddingHorizontal="8dp"
+                        android:paddingVertical="4dp"
+                        android:textColor="@color/white"
+                        android:textSize="16sp"
+                        android:text="@{character.fullName}"
+                        tools:text="Daenerys Targaryen" />
+
+
+                    <TextView
+                        android:id="@+id/character_title"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:layout_marginStart="8dp"
+                        android:layout_gravity="start"
+                        android:gravity="center_vertical"
+                        android:textColor="@color/midnight_blue"
+                        android:textSize="12sp"
+                        android:text="@{character.title}"
+                        tools:text="Mother of Dragons"
+                        app:drawableStartCompat="@drawable/baseline_history_edu_24"
+                        android:drawablePadding="8dp" />
+
+                    <TextView
+                        android:id="@+id/character_house"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:layout_marginStart="8dp"
+                        android:layout_gravity="start"
+                        android:gravity="center_vertical"
+                        android:textColor="@color/midnight_blue"
+                        android:textSize="12sp"
+                        android:text="@{character.family}"
+                        tools:text="House Targaryen"
+                        app:drawableStartCompat="@drawable/baseline_shield_24"
+                        android:drawablePadding="8dp" />
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+        </com.google.android.material.card.MaterialCardView>
+
+        <ProgressBar
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:elevation="5dp"
+            android:indeterminateTint="@color/midnight_blue"
+            android:visibility="@{viewModel.apiStatus == CharacterDetailsStatus.LOADING ? View.VISIBLE : View.GONE }"/>
+
+    </FrameLayout>
+</layout>
