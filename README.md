@@ -27,3 +27,14 @@ This app was built with modern Android development practices and tools. It showc
 - [x] ViewModel
 - [x] Material Design
 
+## Next Steps
+
+This app is not perfect and there are a few things that can be improved:
+
+- [ ] Add forgot password functionality
+- [ ] Improve profile screen
+- [ ] Create a favorites screen that allows users to save their favorite characters
+- [ ] Add a search feature
+- [ ] Expand api response to include more information about each character using a local database
+- [ ] Save user data in a local database
+- etc.
