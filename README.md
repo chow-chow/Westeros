@@ -2,6 +2,8 @@
 
 Game of Thrones Character wiki that utilizes data from [thronesapi.com](https://thronesapi.com/).
 
+Link to [Google Drive](https://drive.google.com/drive/folders/1lTuEie8JxhN7tv5rXNqyIaRkzUliEFsz?usp=sharing)
+
 ## Screenshots
 
 ![screens](./screenshots/screens.png)
